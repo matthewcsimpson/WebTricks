@@ -406,12 +406,7 @@ class RangeSlider {
     }
 
     // Update visual position
-    this.updateThumbPosition(
-      this.inputLeft,
-      this.thumbLeft,
-      this.range,
-      "left",
-    );
+    this.updateThumbPosition();
   }
 
   /**
@@ -456,12 +451,7 @@ class RangeSlider {
     }
 
     // Update visual position
-    this.updateThumbPosition(
-      this.inputRight,
-      this.thumbRight,
-      this.range,
-      "right",
-    );
+    this.updateThumbPosition();
   }
 
   /**
@@ -522,33 +512,55 @@ class RangeSlider {
    * @param {string} side - The side of the slider ('left' or 'right')
    * @private
    */
-  updateThumbPosition(input, thumb, range, side) {
-    const min = parseInt(input.min);
-    const max = parseInt(input.max);
-    const current = parseInt(input.value);
-    const percent = ((current - min) / (max - min)) * 100;
+  updateThumbPosition() {
+    const min = parseInt(this.inputLeft.min, 10);
+    const max = parseInt(this.inputLeft.max, 10);
 
-    // Get the thumb's width to account for its dimensions
-    const thumbWidth =
-      thumb.offsetWidth || parseInt(getComputedStyle(thumb).width) || 20;
-    const sliderWidth =
-      this.slider.offsetWidth ||
-      parseInt(getComputedStyle(this.slider).width) ||
-      1;
+    const leftValue = parseInt(this.inputLeft.value, 10);
+    const rightValue = parseInt(this.inputRight.value, 10);
 
-    // Calculate the percentage that represents half the thumb width
-    const thumbHalfPercent = (thumbWidth / sliderWidth) * 100;
+    const leftPercent = ((leftValue - min) / (max - min)) * 100;
+    const rightPercent = ((rightValue - min) / (max - min)) * 100;
 
-    if (side === "left") {
-      thumb.style.left = `${percent}%`;
-      thumb.style.transform = "translateX(-50%)";
-      range.style.left = `${percent}%`;
-    } else {
-      thumb.style.right = `${100 - percent}%`;
-      thumb.style.transform = "translateX(50%)";
-      range.style.right = `${100 - percent}%`;
-    }
+    this.thumbLeft.style.left = `${leftPercent}%`;
+    this.thumbLeft.style.right = "auto";
+    this.thumbLeft.style.transform = "translateX(-50%)";
+
+    this.thumbRight.style.left = `${rightPercent}%`;
+    this.thumbRight.style.right = "auto";
+    this.thumbRight.style.transform = "translateX(-50%)";
+
+    this.range.style.left = `${leftPercent}%`;
+    this.range.style.right = "auto";
+    this.range.style.width = `${rightPercent - leftPercent}%`;
   }
+  //   updateThumbPosition(input, thumb, range, side) {
+  //     const min = parseInt(input.min);
+  //     const max = parseInt(input.max);
+  //     const current = parseInt(input.value);
+  //     const percent = ((current - min) / (max - min)) * 100;
+
+  //     // Get the thumb's width to account for its dimensions
+  //     const thumbWidth =
+  //       thumb.offsetWidth || parseInt(getComputedStyle(thumb).width) || 20;
+  //     const sliderWidth =
+  //       this.slider.offsetWidth ||
+  //       parseInt(getComputedStyle(this.slider).width) ||
+  //       1;
+
+  //     // Calculate the percentage that represents half the thumb width
+  //     const thumbHalfPercent = (thumbWidth / sliderWidth) * 100;
+
+  //     if (side === "left") {
+  //       thumb.style.left = `${percent}%`;
+  //       thumb.style.transform = "translateX(-50%)";
+  //       range.style.left = `${percent}%`;
+  //     } else {
+  //       thumb.style.right = `${100 - percent}%`;
+  //       thumb.style.transform = "translateX(50%)";
+  //       range.style.right = `${100 - percent}%`;
+  //     }
+  //   }
 
   /**
    * Validates that a value is a valid number
