@@ -336,30 +336,9 @@ class RangeSlider {
 
     this.updateLeftValues(initialLeft);
     this.updateRightValues(initialRight);
+    this.syncVisuals();
   }
-  //   initState() {
-  //     // Configure range inputs
-  //     [this.inputLeft, this.inputRight].forEach((input) => {
-  //       input.setAttribute("min", this.sliderMin);
-  //       input.setAttribute("max", this.sliderMax);
-  //       input.setAttribute("step", this.sliderSteps);
-  //       input.setAttribute("formnovalidate", "");
-  //       input.setAttribute("data-form-ignore", "");
-  //     });
 
-  //     // Set initial values from range inputs if they exist
-  //     if (this.rangeStart && this.rangeStart.value) {
-  //       this.updateLeftValues(this.rangeStart.value);
-  //     } else {
-  //       this.updateLeftValues(this.sliderMin);
-  //     }
-
-  //     if (this.rangeEnd && this.rangeEnd.value) {
-  //       this.updateRightValues(this.rangeEnd.value);
-  //     } else {
-  //       this.updateRightValues(this.sliderMax);
-  //     }
-  //   }
 
   /**
    * Formats a number with commas as thousand separators
@@ -534,33 +513,7 @@ class RangeSlider {
     this.range.style.right = "auto";
     this.range.style.width = `${rightPercent - leftPercent}%`;
   }
-  //   updateThumbPosition(input, thumb, range, side) {
-  //     const min = parseInt(input.min);
-  //     const max = parseInt(input.max);
-  //     const current = parseInt(input.value);
-  //     const percent = ((current - min) / (max - min)) * 100;
 
-  //     // Get the thumb's width to account for its dimensions
-  //     const thumbWidth =
-  //       thumb.offsetWidth || parseInt(getComputedStyle(thumb).width) || 20;
-  //     const sliderWidth =
-  //       this.slider.offsetWidth ||
-  //       parseInt(getComputedStyle(this.slider).width) ||
-  //       1;
-
-  //     // Calculate the percentage that represents half the thumb width
-  //     const thumbHalfPercent = (thumbWidth / sliderWidth) * 100;
-
-  //     if (side === "left") {
-  //       thumb.style.left = `${percent}%`;
-  //       thumb.style.transform = "translateX(-50%)";
-  //       range.style.left = `${percent}%`;
-  //     } else {
-  //       thumb.style.right = `${100 - percent}%`;
-  //       thumb.style.transform = "translateX(50%)";
-  //       range.style.right = `${100 - percent}%`;
-  //     }
-  //   }
 
   /**
    * Validates that a value is a valid number
