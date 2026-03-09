@@ -313,7 +313,6 @@ class RangeSlider {
    * @private
    */
   initState() {
-    // Configure range inputs
     [this.inputLeft, this.inputRight].forEach((input) => {
       input.setAttribute("min", this.sliderMin);
       input.setAttribute("max", this.sliderMax);
@@ -322,19 +321,45 @@ class RangeSlider {
       input.setAttribute("data-form-ignore", "");
     });
 
-    // Set initial values from range inputs if they exist
-    if (this.rangeStart && this.rangeStart.value) {
-      this.updateLeftValues(this.rangeStart.value);
-    } else {
-      this.updateLeftValues(this.sliderMin);
-    }
+    const initialLeft =
+      this.rangeStart && this.rangeStart.value
+        ? parseInt(this.rangeStart.value, 10)
+        : this.sliderMin;
 
-    if (this.rangeEnd && this.rangeEnd.value) {
-      this.updateRightValues(this.rangeEnd.value);
-    } else {
-      this.updateRightValues(this.sliderMax);
-    }
+    const initialRight =
+      this.rangeEnd && this.rangeEnd.value
+        ? parseInt(this.rangeEnd.value, 10)
+        : this.sliderMax;
+
+    this.inputLeft.value = initialLeft;
+    this.inputRight.value = initialRight;
+
+    this.updateLeftValues(initialLeft);
+    this.updateRightValues(initialRight);
   }
+  //   initState() {
+  //     // Configure range inputs
+  //     [this.inputLeft, this.inputRight].forEach((input) => {
+  //       input.setAttribute("min", this.sliderMin);
+  //       input.setAttribute("max", this.sliderMax);
+  //       input.setAttribute("step", this.sliderSteps);
+  //       input.setAttribute("formnovalidate", "");
+  //       input.setAttribute("data-form-ignore", "");
+  //     });
+
+  //     // Set initial values from range inputs if they exist
+  //     if (this.rangeStart && this.rangeStart.value) {
+  //       this.updateLeftValues(this.rangeStart.value);
+  //     } else {
+  //       this.updateLeftValues(this.sliderMin);
+  //     }
+
+  //     if (this.rangeEnd && this.rangeEnd.value) {
+  //       this.updateRightValues(this.rangeEnd.value);
+  //     } else {
+  //       this.updateRightValues(this.sliderMax);
+  //     }
+  //   }
 
   /**
    * Formats a number with commas as thousand separators
